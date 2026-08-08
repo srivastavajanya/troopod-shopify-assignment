@@ -107,6 +107,23 @@
     });
     hstage.addEventListener('mouseenter', hstop);
     hstage.addEventListener('mouseleave', hplay);
+
+    /* Touch swipe support for mobile / tablet devices */
+    var touchStartX = 0;
+    hstage.addEventListener('touchstart', function (e) {
+      if (e.touches && e.touches.length) touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    hstage.addEventListener('touchend', function (e) {
+      if (!touchStartX || !e.changedTouches || !e.changedTouches.length) return;
+      var diffX = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diffX) > 40) {
+        hstop();
+        if (diffX > 0) { hgo(hi + 1); } else { hgo(hi - 1); }
+        hplay();
+      }
+      touchStartX = 0;
+    }, { passive: true });
+
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) {
         es.forEach(function (e) { e.isIntersecting ? hplay() : hstop(); });
