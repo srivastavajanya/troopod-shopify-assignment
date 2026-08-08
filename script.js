@@ -211,6 +211,18 @@
     });
   });
 
+  /* ---------- reviews marquee touch pause interactivity ---------- */
+  var revRail = document.querySelector('.revrail');
+  var revTrack = document.querySelector('.revtrack');
+  if (revRail && revTrack) {
+    revRail.addEventListener('touchstart', function () {
+      revTrack.style.animationPlayState = 'paused';
+    }, { passive: true });
+    revRail.addEventListener('touchend', function () {
+      revTrack.style.animationPlayState = 'running';
+    }, { passive: true });
+  }
+
   /* ---------- product rotator ---------- */
   var rot = document.getElementById('rot');
   if (rot) {
