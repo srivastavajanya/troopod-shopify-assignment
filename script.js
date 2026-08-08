@@ -183,6 +183,34 @@
     });
   });
 
+  /* ---------- build your bundle tier interactivity ---------- */
+  var tierBtns = document.querySelectorAll('#bundles .tier .btn');
+  tierBtns.forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      var tier = btn.closest('.tier');
+      var qtyEl = tier ? tier.querySelector('.qty') : null;
+      var count = qtyEl ? parseInt(qtyEl.textContent, 10) || 3 : 3;
+      cartCount += count;
+      if (cartDot) {
+        cartDot.textContent = String(cartCount);
+        if ('animate' in cartDot) {
+          cartDot.animate([
+            { transform: 'scale(1)' },
+            { transform: 'scale(1.45)' },
+            { transform: 'scale(1)' }
+          ], { duration: 250, easing: 'ease-out' });
+        }
+      }
+      var origHTML = btn.innerHTML;
+      btn.innerHTML = 'Box Added ✓';
+      btn.classList.add('added');
+      setTimeout(function () {
+        btn.innerHTML = origHTML;
+        btn.classList.remove('added');
+      }, 1400);
+    });
+  });
+
   /* ---------- product rotator ---------- */
   var rot = document.getElementById('rot');
   if (rot) {
