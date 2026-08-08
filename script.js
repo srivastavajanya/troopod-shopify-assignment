@@ -1,3 +1,8 @@
+/**
+ * Troopod Shopify Assignment - Main Interactivity Engine
+ * Features: Scroll reveals, Scene crossfading, Water layer parallax, 
+ * Hero carousel, Product Grid interactivity, Bundle cart updates, and Marquee pause controls.
+ */
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
