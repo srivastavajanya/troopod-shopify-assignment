@@ -1,0 +1,213 @@
+{% comment %}
+  Purelane Best Selling Combos Section
+  Horizontal scroll snap carousel with merchant-editable combo blocks
+{% endcomment %}
+
+<section class="sec" id="combos" data-scene="3">
+  <div class="wrap">
+    <div class="panel-head rv">
+      <span class="kicker">{{ section.settings.kicker | default: 'Pre-built to save you money' }}</span>
+      <h2 class="d2" style="margin-top:12px">{{ section.settings.title | default: 'Best selling combos' }}</h2>
+      <div class="rule">
+        <i></i>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg>
+        <i></i>
+      </div>
+      <p class="lede" style="margin:14px auto 0">{{ section.settings.description | default: 'Swipe through the boxes people order most. Each one is already priced below buying the same products on their own.' }}</p>
+    </div>
+
+    <div class="comborail rv">
+      {% for block in section.blocks %}
+        <article class="glass combo {% if block.settings.is_popular %}hero-combo{% endif %}" {{ block.shopify_attributes }}>
+          <div class="tray">
+            {% if block.settings.save_text != blank %}<span class="save">{{ block.settings.save_text }}</span>{% endif %}
+            {% if block.settings.flag_text != blank %}<span class="flag">{{ block.settings.flag_text }}</span>{% endif %}
+            <div class="stack">
+              <span class="it"><span class="pimg {{ block.settings.pimg1 | default: 'p-kitchen' }}" role="img" aria-label="Product 1"></span><span>{{ block.settings.p1_label | default: 'Item 1' }}</span></span>
+              <span class="plus" aria-hidden="true">+</span>
+              <span class="it"><span class="pimg {{ block.settings.pimg2 | default: 'p-dish' }}" role="img" aria-label="Product 2"></span><span>{{ block.settings.p2_label | default: 'Item 2' }}</span></span>
+              <span class="plus" aria-hidden="true">+</span>
+              <span class="it"><span class="pimg {{ block.settings.pimg3 | default: 'p-tap' }}" role="img" aria-label="Product 3"></span><span>{{ block.settings.p3_label | default: 'Item 3' }}</span></span>
+            </div>
+          </div>
+          <div class="body">
+            <h3>{{ block.settings.title }}</h3>
+            <div class="cnt">{{ block.settings.product_count | default: '3 products' }}</div>
+            <p class="inc">{{ block.settings.includes_text }}</p>
+            <div class="prow">
+              <strong>{{ block.settings.price }}</strong>
+              {% if block.settings.compare_price != blank %}<s>{{ block.settings.compare_price }}</s>{% endif %}
+              {% if block.settings.save_tag != blank %}<em>{{ block.settings.save_tag }}</em>{% endif %}
+            </div>
+            <div class="fine">Inclusive of all taxes · COD available</div>
+            <a class="btn btn-ghost" href="#bundles">Shop bundle <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg></a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    <div class="swipecue" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+      Swipe for more combos
+    </div>
+    <p class="railnote">{{ section.settings.footer_note | default: 'Tapping "Shop bundle" opens the bundle picker with these products already added. You can still swap anything before you pay.' }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane Combos",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker Text",
+      "default": "Pre-built to save you money"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Best selling combos"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own."
+    },
+    {
+      "type": "text",
+      "id": "footer_note",
+      "label": "Footer Note",
+      "default": "Tapping \"Shop bundle\" opens the bundle picker with these products already added. You can still swap anything before you pay."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "combo_box",
+      "name": "Combo Box",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Combo Title",
+          "default": "Kitchen Essentials"
+        },
+        {
+          "type": "text",
+          "id": "product_count",
+          "label": "Product Count Label",
+          "default": "3 products"
+        },
+        {
+          "type": "textarea",
+          "id": "includes_text",
+          "label": "Includes Text",
+          "default": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner."
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "₹499"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare Price",
+          "default": "₹897"
+        },
+        {
+          "type": "text",
+          "id": "save_tag",
+          "label": "Save Tag",
+          "default": "Save ₹398"
+        },
+        {
+          "type": "text",
+          "id": "save_text",
+          "label": "Top Savings Pill",
+          "default": "You save ₹398"
+        },
+        {
+          "type": "text",
+          "id": "flag_text",
+          "label": "Flag Badge",
+          "default": "Most popular"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_popular",
+          "label": "Highlight as Popular Combo",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "pimg1",
+          "label": "Item 1 CSS Graphic Class",
+          "default": "p-kitchen"
+        },
+        {
+          "type": "text",
+          "id": "p1_label",
+          "label": "Item 1 Subtitle",
+          "default": "Cuts grease"
+        },
+        {
+          "type": "text",
+          "id": "pimg2",
+          "label": "Item 2 CSS Graphic Class",
+          "default": "p-dish"
+        },
+        {
+          "type": "text",
+          "id": "p2_label",
+          "label": "Item 2 Subtitle",
+          "default": "Dishes"
+        },
+        {
+          "type": "text",
+          "id": "pimg3",
+          "label": "Item 3 CSS Graphic Class",
+          "default": "p-tap"
+        },
+        {
+          "type": "text",
+          "id": "p3_label",
+          "label": "Item 3 Subtitle",
+          "default": "Stains"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane Combos",
+      "blocks": [
+        {
+          "type": "combo_box",
+          "settings": {
+            "title": "Kitchen Essentials",
+            "save_text": "You save ₹398",
+            "flag_text": "Most popular",
+            "price": "₹499",
+            "compare_price": "₹897"
+          }
+        },
+        {
+          "type": "combo_box",
+          "settings": {
+            "title": "Laundry Care",
+            "save_text": "You save ₹350",
+            "flag_text": "Top value",
+            "price": "₹499",
+            "compare_price": "₹849",
+            "is_popular": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

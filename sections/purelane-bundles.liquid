@@ -1,0 +1,165 @@
+{% comment %}
+  Purelane Bundles Section
+  3-Tier Box Builder with merchant-editable block configuration
+{% endcomment %}
+
+<section class="sec" id="bundles" data-scene="3">
+  <div class="wrap">
+    <div class="glass sec-pad rv" style="margin-bottom:16px">
+      <div class="panel-head" style="margin-bottom:0">
+        <span class="kicker">{{ section.settings.kicker | default: 'Build your bundle' }}</span>
+        <h2 class="d2" style="margin-top:12px">{{ section.settings.title | default: 'One box. Every room.' }}</h2>
+        <p class="lede" style="margin:0 auto">{{ section.settings.description | default: 'Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way.' }}</p>
+      </div>
+    </div>
+
+    <div class="tiers">
+      {% for block in section.blocks %}
+        <article class="glass tier {% if block.settings.is_featured %}best{% endif %} rv" {{ block.shopify_attributes }}>
+          <span class="tag">{{ block.settings.tag_text }}</span>
+          <div class="qty">{{ block.settings.qty_number }}<small>Products</small></div>
+          <div class="price">{{ block.settings.price }} <s>{{ block.settings.compare_price }}</s></div>
+          <p class="body-s" style="font-size:12px">{{ block.settings.unit_cost_text }}</p>
+          <ul>
+            {% assign features = block.settings.features | newline_to_br | split: '<br />' %}
+            {% for feat in features %}
+              {% assign trimmed_feat = feat | strip %}
+              {% if trimmed_feat != blank %}
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+                  {{ trimmed_feat }}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+          {% if block.settings.is_featured %}
+            <a class="btn btn-primary" href="#shop">Build this box
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+            </a>
+          {% else %}
+            <a class="btn btn-ghost" href="#shop">Build this box</a>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane Bundles",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker Text",
+      "default": "Build your bundle"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "One box. Every room."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle_tier",
+      "name": "Bundle Tier Box",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag_text",
+          "label": "Tier Tag Badge",
+          "default": "Starter"
+        },
+        {
+          "type": "number",
+          "id": "qty_number",
+          "label": "Product Quantity",
+          "default": 2
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "₹349"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare Price",
+          "default": "₹598"
+        },
+        {
+          "type": "text",
+          "id": "unit_cost_text",
+          "label": "Unit Cost Subtitle",
+          "default": "Flat ₹174 per product"
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "Features List (One per line)",
+          "default": "Pick any two products\nFree shipping across India"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_featured",
+          "label": "Highlight as Featured Tier",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane Bundles",
+      "blocks": [
+        {
+          "type": "bundle_tier",
+          "settings": {
+            "tag_text": "Starter",
+            "qty_number": 2,
+            "price": "₹349",
+            "compare_price": "₹598",
+            "unit_cost_text": "Flat ₹174 per product",
+            "features": "Pick any two products\nFree shipping across India",
+            "is_featured": false
+          }
+        },
+        {
+          "type": "bundle_tier",
+          "settings": {
+            "tag_text": "Most popular",
+            "qty_number": 3,
+            "price": "₹499",
+            "compare_price": "₹897",
+            "unit_cost_text": "Flat ₹166 per product",
+            "features": "Pick any three products\nCovers kitchen and laundry\nFree shipping across India",
+            "is_featured": true
+          }
+        },
+        {
+          "type": "bundle_tier",
+          "settings": {
+            "tag_text": "Whole home",
+            "qty_number": 5,
+            "price": "₹799",
+            "compare_price": "₹1495",
+            "unit_cost_text": "Flat ₹160 per product",
+            "features": "Pick any five products\nEvery room in one order\nFree shipping across India",
+            "is_featured": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

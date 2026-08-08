@@ -1,0 +1,143 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#4b3a8f">
+    <link rel="canonical" href="{{ canonical_url }}">
+    
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Theme Stylesheet -->
+    {{ 'styles.css' | asset_url | stylesheet_tag }}
+
+    {{ content_for_header }}
+  </head>
+
+  <body>
+    <!-- Persistent Background Scenes -->
+    <div class="scenes" id="scenes" data-d="1">
+      <div class="scene s1 on"></div>
+      <div class="scene s2"></div>
+      <div class="scene s3"></div>
+      <div class="scene s4"></div>
+      <div class="water" id="water">
+        <div class="wl wl-a"><svg class="sv" viewBox="0 0 1440 900" preserveAspectRatio="none"><path fill="rgba(230,255,242,.22)" d="M0 220 Q 360 120, 720 220 T 1440 220 L1440 900 L0 900 Z"/></svg></div>
+        <div class="wl wl-b"><svg class="sv" viewBox="0 0 1440 900" preserveAspectRatio="none"><path fill="rgba(255,255,255,.14)" d="M0 310 Q 360 410, 720 310 T 1440 310 L1440 900 L0 900 Z"/></svg></div>
+        <div class="wl wl-c"><svg class="sv" viewBox="0 0 1440 900" preserveAspectRatio="none"><path fill="rgba(200,245,230,.10)" d="M0 160 Q 420 280, 840 160 T 1440 160 L1440 900 L0 900 Z"/></svg></div>
+        <div class="wl wl-s"><svg class="sv" viewBox="0 0 1440 200" preserveAspectRatio="none"><path fill="rgba(255,255,255,.32)" d="M0 40 Q 180 80, 360 40 T 720 40 T 1080 40 T 1440 40 L1440 0 L0 0 Z"/></svg></div>
+      </div>
+      <div class="bub">
+        <span style="--x:12%;--s:14px;--dur:14s;--dly:0s;--drift:24px"></span>
+        <span style="--x:28%;--s:8px;--dur:18s;--dly:3s;--drift:-18px"></span>
+        <span style="--x:45%;--s:22px;--dur:12s;--dly:1s;--drift:36px"></span>
+        <span style="--x:63%;--s:10px;--dur:16s;--dly:5s;--drift:-22px"></span>
+        <span style="--x:78%;--s:16px;--dur:13s;--dly:2s;--drift:28px"></span>
+        <span style="--x:91%;--s:9px;--dur:19s;--dly:4s;--drift:-14px"></span>
+      </div>
+      <div class="vig"></div>
+    </div>
+
+    <!-- Announcement Ticker -->
+    <div class="ticker">
+      <div class="track">
+        <span>Plant-powered homecare <b>· Zero harsh chemicals</b></span>
+        <span>Free shipping on all orders over ₹499</span>
+        <span>Save up to 40% with pre-built combos</span>
+        <span>Plant-powered homecare <b>· Zero harsh chemicals</b></span>
+        <span>Free shipping on all orders over ₹499</span>
+        <span>Save up to 40% with pre-built combos</span>
+      </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header id="hdr">
+      <div class="navpill glass">
+        <a class="brand" href="{{ routes.root_url }}" aria-label="Purelane home">
+          <span class="mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#b8701c"><path d="M12 3 20.5 8v8L12 21 3.5 16V8L12 3Z"/><path d="M12 12 20.5 8M12 12v9M12 12 3.5 8"/></svg>
+          </span>
+          <span class="txt">
+            <span class="n1">{{ shop.name | default: 'Purelane' }}</span>
+            <span class="n2">Clean, simply</span>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="#shop">Shop</a>
+          <a href="#combos">Combos</a>
+          <a href="#bundles">Bundles</a>
+          <a href="#reviews">Reviews</a>
+        </nav>
+        <div class="navtools">
+          <a class="ico" href="{{ routes.cart_url }}" aria-label="Shopping Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="dot">{{ cart.item_count }}</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Side Progress Rail -->
+    <aside class="rail" aria-label="Section progress">
+      <a href="#shop" class="on" aria-label="Shop section"></a>
+      <a href="#combos" aria-label="Combos section"></a>
+      <a href="#bundles" aria-label="Bundles section"></a>
+      <a href="#reviews" aria-label="Reviews section"></a>
+    </aside>
+
+    <!-- Main Content Output -->
+    <main id="MainContent" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="wrap">
+        <div class="fgrid">
+          <div class="fcol">
+            <h5>{{ shop.name | default: 'Purelane' }}</h5>
+            <p>Plant-based, non-toxic cleaning products for your home, family and pets.</p>
+          </div>
+          <div class="fcol">
+            <h5>Shop</h5>
+            <a href="#shop">All products</a>
+            <a href="#combos">Combos</a>
+            <a href="#bundles">Bundles</a>
+          </div>
+          <div class="fcol">
+            <h5>About</h5>
+            <a href="#reviews">Reviews</a>
+            <a href="#how">How it works</a>
+          </div>
+          <div class="fcol">
+            <h5>Help</h5>
+            <a href="#">Shipping &amp; Returns</a>
+            <a href="#">Contact Us</a>
+          </div>
+        </div>
+        <div class="fbot">
+          <span>&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.</span>
+          <span>Powered by Shopify</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Theme Script -->
+    {{ 'script.js' | asset_url | script_tag }}
+  </body>
+</html>

@@ -1,0 +1,27 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Purelane (Dawn Extension)",
+    "theme_version": "1.0.0",
+    "theme_author": "Antigravity",
+    "theme_documentation_url": "https://github.com/srivastavajanya/troopod-shopify-assignment",
+    "theme_support_url": "https://github.com/srivastavajanya/troopod-shopify-assignment"
+  },
+  {
+    "name": "Brand Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "brand_color",
+        "label": "Primary Brand Color",
+        "default": "#4b3a8f"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "label": "Accent Color",
+        "default": "#f0a03c"
+      }
+    ]
+  }
+]

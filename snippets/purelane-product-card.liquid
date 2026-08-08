@@ -1,0 +1,65 @@
+{% comment %}
+  Purelane Product Card Snippet
+  Renders real Shopify product data or block fallbacks
+{% endcomment %}
+
+{% assign card_product = product | default: block_product %}
+{% assign card_title = card_product.title | default: title | default: 'Purelane Cleaner' %}
+{% assign card_available = card_product.available %}
+{% if card_product == blank %}
+  {% assign card_available = true %}
+{% endif %}
+
+<article class="glass card rv">
+  <div class="shot">
+    {% if card_product and card_product.available == false %}
+      <span class="pill sold-out">Sold out</span>
+    {% elsif pill_text != blank %}
+      <span class="pill">{{ pill_text }}</span>
+    {% else %}
+      <span class="pill">Best seller</span>
+    {% endif %}
+
+    {% if card_product and card_product.featured_image %}
+      <img src="{{ card_product.featured_image | image_url: width: 400 }}" alt="{{ card_product.featured_image.alt | default: card_title | escape }}" loading="lazy" width="400" height="400">
+    {% elsif fallback_class != blank %}
+      <span class="pimg {{ fallback_class }}" role="img" aria-label="{{ card_title | escape }}"></span>
+    {% else %}
+      <div class="pimg-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span>No image</span>
+      </div>
+    {% endif %}
+  </div>
+
+  <h4 title="{{ card_title | escape }}">{{ card_title }}</h4>
+
+  <div class="rate">
+    <b>★ {{ rating | default: '4.8' }}</b> · {{ reviews_count | default: '230+' }} reviews
+  </div>
+
+  <div class="pr">
+    {% if card_product %}
+      <strong>{{ card_product.price | money }}</strong>
+      {% if card_product.compare_at_price > card_product.price %}
+        <s>{{ card_product.compare_at_price | money }}</s>
+        {% assign savings = card_product.compare_at_price | minus: card_product.price | times: 100 | divided_by: card_product.compare_at_price %}
+        <em>{{ savings }}% off</em>
+      {% endif %}
+    {% else %}
+      <strong>{{ price | default: '₹200' }}</strong>
+      {% if compare_price != blank %}<s>{{ compare_price }}</s>{% endif %}
+      {% if discount_tag != blank %}<em>{{ discount_tag }}</em>{% endif %}
+    {% endif %}
+  </div>
+
+  {% if card_available %}
+    <button class="btn btn-ghost btn-sm add-to-cart-btn" aria-label="Add {{ card_title | escape }} to cart">Add to cart</button>
+  {% else %}
+    <button class="btn btn-ghost btn-sm" disabled aria-disabled="true">Sold Out</button>
+  {% endif %}
+</article>
