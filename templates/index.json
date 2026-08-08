@@ -1,26 +1,26 @@
 {
   "sections": {
-    "hero": {
+    "purelane_hero": {
       "type": "purelane-hero"
     },
-    "product_grid": {
+    "purelane_product_grid": {
       "type": "purelane-product-grid"
     },
-    "combos": {
+    "purelane_combos": {
       "type": "purelane-combos"
     },
-    "bundles": {
+    "purelane_bundles": {
       "type": "purelane-bundles"
     },
-    "reviews": {
+    "purelane_reviews": {
       "type": "purelane-reviews"
     }
   },
   "order": [
-    "hero",
-    "product_grid",
-    "combos",
-    "bundles",
-    "reviews"
+    "purelane_hero",
+    "purelane_product_grid",
+    "purelane_combos",
+    "purelane_bundles",
+    "purelane_reviews"
   ]
 }
