@@ -131,6 +131,33 @@
     } else { hplay(); }
   }
 
+  /* ---------- product grid add-to-cart interactivity ---------- */
+  var cartBtns = document.querySelectorAll('.add-to-cart-btn, .card .btn');
+  var cartDot = document.querySelector('.dot');
+  var cartCount = 0;
+  cartBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      cartCount++;
+      if (cartDot) {
+        cartDot.textContent = String(cartCount);
+        if ('animate' in cartDot) {
+          cartDot.animate([
+            { transform: 'scale(1)' },
+            { transform: 'scale(1.4)' },
+            { transform: 'scale(1)' }
+          ], { duration: 250, easing: 'ease-out' });
+        }
+      }
+      var origText = btn.textContent;
+      btn.textContent = 'Added ✓';
+      btn.classList.add('added');
+      setTimeout(function () {
+        btn.textContent = origText;
+        btn.classList.remove('added');
+      }, 1400);
+    });
+  });
+
   /* ---------- product rotator ---------- */
   var rot = document.getElementById('rot');
   if (rot) {
