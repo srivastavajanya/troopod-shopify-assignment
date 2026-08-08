@@ -158,6 +158,31 @@
     });
   });
 
+  /* ---------- best selling combos interactivity ---------- */
+  var comboBtns = document.querySelectorAll('#combos .combo .btn');
+  comboBtns.forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      cartCount += 3;
+      if (cartDot) {
+        cartDot.textContent = String(cartCount);
+        if ('animate' in cartDot) {
+          cartDot.animate([
+            { transform: 'scale(1)' },
+            { transform: 'scale(1.45)' },
+            { transform: 'scale(1)' }
+          ], { duration: 250, easing: 'ease-out' });
+        }
+      }
+      var origHTML = btn.innerHTML;
+      btn.innerHTML = 'Bundle Added ✓';
+      btn.classList.add('added');
+      setTimeout(function () {
+        btn.innerHTML = origHTML;
+        btn.classList.remove('added');
+      }, 1400);
+    });
+  });
+
   /* ---------- product rotator ---------- */
   var rot = document.getElementById('rot');
   if (rot) {
